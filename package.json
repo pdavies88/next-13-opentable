@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@axe-core/react": "^4.7.3",
     "@prisma/client": "^4.15.0",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
