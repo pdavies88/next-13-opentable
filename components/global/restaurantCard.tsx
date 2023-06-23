@@ -1,24 +1,48 @@
+import { RestaurantCardType } from '@/app/page'
 import Link from 'next/link'
 
-const RestaurantCard = () => {
+interface Props {
+  restaurant: RestaurantCardType
+}
+
+const RestaurantCard = ({ restaurant }: Props) => {
+  const { name, cuisine, main_image, slug, price, location } = restaurant
+
+  const priceLookup = {
+    CHEAP: (
+      <>
+        <span>$</span>
+        <span className='text-gray-400'>$$$</span>
+      </>
+    ),
+    REGULAR: (
+      <>
+        <span>$$</span>
+        <span className='text-gray-400'>$$</span>
+      </>
+    ),
+    EXPENSIVE: (
+      <>
+        <span>$$$</span>
+        <span className='text-gray-400'>$</span>
+      </>
+    )
+  }
+
   return (
     <div className='w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer'>
-      <Link href='/restaurant/milestones-grill'>
-        <img
-          src='https://resizer.otstatic.com/v2/photos/wide-huge/2/31852905.jpg'
-          alt=''
-          className='w-full h-36'
-        />
+      <Link href={`/restaurant/${slug}`}>
+        <img src={main_image} alt='' className='w-full h-36' />
         <div className='p-1'>
-          <h3 className='font-bold text-2xl mb-2'>Milestones Grill</h3>
+          <h3 className='font-bold text-2xl mb-2'>{name}</h3>
           <div className='flex items-start'>
             <div className='flex mb-2'>*****</div>
             <p className='ml-2'>77 reviews</p>
           </div>
           <div className='flex text-reg font-light capitalize'>
-            <p className=' mr-3'>Mexican</p>
-            <p className='mr-3'>$$$$</p>
-            <p>Toronto</p>
+            <p className='mr-3'>{cuisine.name}</p>
+            <p className='mr-3'>{priceLookup[price]}</p>
+            <p>{location.name}</p>
           </div>
           <p className='text-sm mt-1 font-bold'>Booked 3 times today</p>
         </div>
