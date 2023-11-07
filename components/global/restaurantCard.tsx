@@ -1,33 +1,13 @@
-import { RestaurantCardType } from '@/app/page'
-import Link from 'next/link'
+import { priceLookup } from '@/app/helpers';
+import { RestaurantCardType } from '@/app/page';
+import Link from 'next/link';
 
 interface Props {
-  restaurant: RestaurantCardType
+  restaurant: RestaurantCardType;
 }
 
 const RestaurantCard = ({ restaurant }: Props) => {
-  const { name, cuisine, main_image, slug, price, location } = restaurant
-
-  const priceLookup = {
-    CHEAP: (
-      <>
-        <span>$</span>
-        <span className='text-gray-400'>$$$</span>
-      </>
-    ),
-    REGULAR: (
-      <>
-        <span>$$</span>
-        <span className='text-gray-400'>$$</span>
-      </>
-    ),
-    EXPENSIVE: (
-      <>
-        <span>$$$</span>
-        <span className='text-gray-400'>$</span>
-      </>
-    )
-  }
+  const { name, cuisine, main_image, slug, price, location } = restaurant;
 
   return (
     <div className='w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer'>
@@ -48,7 +28,7 @@ const RestaurantCard = ({ restaurant }: Props) => {
         </div>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default RestaurantCard
+export default RestaurantCard;
