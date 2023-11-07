@@ -1,7 +1,7 @@
 const ReserveHeader = () => {
   return (
     <div>
-      <h3 className='font-bold'>You're almost done!</h3>
+      <h3 className='font-bold'>You&lsquo;re almost done!</h3>
       <div className='mt-5 flex'>
         <img
           src='https://images.otstatic.com/prod1/49153814/2/medium.jpg'
@@ -18,7 +18,7 @@ const ReserveHeader = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ReserveHeader
+export default ReserveHeader;
