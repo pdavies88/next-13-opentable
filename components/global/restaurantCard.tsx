@@ -1,4 +1,4 @@
-import { priceLookup } from '@/app/helpers';
+import { priceLookup, reviewRatingAverage } from '@/app/helpers';
 import { RestaurantCardType } from '@/app/page';
 import Link from 'next/link';
 
@@ -15,7 +15,16 @@ const RestaurantCard = ({ restaurant }: Props) => {
         <div className='p-1'>
           <h3 className='font-bold text-2xl mb-2'>{name}</h3>
           <div className='flex items-start'>
-            <div className='flex mb-2'>*****</div>
+            <div
+              className='flex mb-2 stars'
+              style={
+                {
+                  '--rating': reviewRatingAverage(restaurant.reviews).toFixed(
+                    1
+                  ),
+                } as React.CSSProperties
+              }
+            />
             <p className='ml-2'>
               {restaurant.reviews.length} review
               {restaurant.reviews.length === 1 ? '' : 's'}

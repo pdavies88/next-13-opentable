@@ -29,7 +29,14 @@ const SearchCard = ({ restaurant }: { restaurant: Restaurant }) => {
       <div className='pl-5'>
         <h2 className='text-3xl'>{restaurant.name}</h2>
         <div className='flex items-start'>
-          <div className='flex mb-2'>*****</div>
+          <div
+            className='flex mb-2 stars'
+            style={
+              {
+                '--rating': reviewRatingAverage(restaurant.reviews).toFixed(1),
+              } as React.CSSProperties
+            }
+          />
           <p className='ml-2 text-sm'>{ratingScale()}</p>
         </div>
         <div className='mb-9'>

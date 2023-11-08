@@ -5,7 +5,14 @@ const RestaurantRating = ({ reviews }: { reviews: Review[] }) => {
   return (
     <div className='flex items-end'>
       <div className='ratings mt-2 flex items-center'>
-        <p>*****</p>
+        <p
+          className='stars'
+          style={
+            {
+              '--rating': reviewRatingAverage(reviews).toFixed(1),
+            } as React.CSSProperties
+          }
+        />
         <p className='text-reg ml-3'>
           {reviewRatingAverage(reviews).toFixed(1)}
         </p>
