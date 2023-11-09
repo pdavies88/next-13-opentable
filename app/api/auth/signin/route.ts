@@ -1,6 +1,6 @@
+import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import validator from 'validator';
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import * as jose from 'jose';
 // import { setCookie } from 'cookies-next';
@@ -9,39 +9,19 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { firstName, lastName, email, phone, city, password } = body;
   const errors: string[] = [];
+  const { email, password } = body;
 
   const validationSchema = [
-    {
-      valid: validator.isLength(firstName, {
-        min: 1,
-        max: 20,
-      }),
-      errorMessage: 'First name is invalid',
-    },
-    {
-      valid: validator.isLength(lastName, {
-        min: 1,
-        max: 20,
-      }),
-      errorMessage: 'First name is invalid',
-    },
     {
       valid: validator.isEmail(email),
       errorMessage: 'Email is invalid',
     },
     {
-      valid: validator.isMobilePhone(phone),
-      errorMessage: 'Phone number is invalid',
-    },
-    {
-      valid: validator.isLength(city, { min: 1 }),
-      errorMessage: 'City is invalid',
-    },
-    {
-      valid: validator.isStrongPassword(password),
-      errorMessage: 'Password is not strong enough',
+      valid: validator.isLength(password, {
+        min: 1,
+      }),
+      errorMessage: 'Password is invalid',
     },
   ];
 
@@ -55,33 +35,30 @@ export async function POST(req: Request) {
     return NextResponse.json({ errorMessage: errors[0] }, { status: 400 });
   }
 
-  const userWithEmail = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email,
     },
   });
 
-  if (userWithEmail) {
+  if (!user) {
     return NextResponse.json(
-      { errorMessage: 'Email is associated with another account' },
-      { status: 400 }
+      { errorMessage: 'Email or password is invalid' },
+      { status: 401 }
     );
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const isMatch = await bcrypt.compare(password, user.password);
 
-  const user = await prisma.user.create({
-    data: {
-      first_name: firstName,
-      last_name: lastName,
-      password: hashedPassword,
-      city,
-      phone,
-      email,
-    },
-  });
+  if (!isMatch) {
+    return NextResponse.json(
+      { errorMessage: 'Email or password is invalid' },
+      { status: 401 }
+    );
+  }
 
   const alg = 'HS256';
+
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
   const token = await new jose.SignJWT({ email: user.email })

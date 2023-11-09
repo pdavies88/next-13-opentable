@@ -17,6 +17,8 @@
     "bcrypt": "^5.1.1",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
+    "jose": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "13.4.5",
     "postcss": "8.4.24",
     "prisma": "^4.15.0",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/validator": "^13.11.6"
   }
 }
