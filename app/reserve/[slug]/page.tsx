@@ -1,13 +1,13 @@
-import ReserveForm from '@/components/reserve/form'
-import ReserveHeader from '@/components/reserve/header'
+import ReserveForm from '@/components/reserve/form';
+import ReserveHeader from '@/components/reserve/header';
 
-import { Metadata } from 'next'
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Reserve Page'
-}
+  title: 'Reserve Page',
+};
 
-export default function Reservation () {
+export default function Reservation() {
   return (
     <>
       <div className='border-t h-screen'>
@@ -17,5 +17,5 @@ export default function Reservation () {
         </div>
       </div>
     </>
-  )
+  );
 }

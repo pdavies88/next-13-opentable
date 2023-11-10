@@ -1,11 +1,11 @@
-import RestaurantHeader from '@/components/restaurant/header'
+import RestaurantHeader from '@/components/restaurant/header';
 
 const RestaurantLayout = ({
   children,
-  params
+  params,
 }: {
-  children: React.ReactNode
-  params: { slug: string }
+  children: React.ReactNode;
+  params: { slug: string };
 }) => {
   return (
     <>
@@ -14,7 +14,7 @@ const RestaurantLayout = ({
         {children}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default RestaurantLayout
+export default RestaurantLayout;
