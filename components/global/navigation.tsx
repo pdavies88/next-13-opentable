@@ -2,9 +2,18 @@
 
 import Link from 'next/link';
 import AuthModal from './authModal';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { AuthenticationContext } from '@/app/context/AuthContext';
+import { deleteCookie } from 'cookies-next';
 
 const Navigation = () => {
+  const { loading, data, setAuthState } = useContext(AuthenticationContext);
+
+  const signout = () => {
+    deleteCookie('jwt');
+    location.reload();
+  };
+
   const toggleModal = (type: string) => {
     const dialog = document.querySelector(
       `dialog.${type}`
@@ -27,6 +36,11 @@ const Navigation = () => {
           e.clientY > dialogDimensions.bottom
         ) {
           d.close();
+          setAuthState({
+            data,
+            error: null,
+            loading,
+          });
         }
       })
     );
@@ -41,10 +55,15 @@ const Navigation = () => {
             e.clientY > dialogDimensions.bottom
           ) {
             d.close();
+            setAuthState({
+              data,
+              error: null,
+              loading,
+            });
           }
         })
       );
-  }, []);
+  }, [data, loading, setAuthState]);
 
   return (
     <nav className='bg-white p-2 flex justify-between'>
@@ -54,20 +73,31 @@ const Navigation = () => {
 
       <div>
         <div className='flex'>
-          <button
-            className='bg-blue-400 text-white border p-1 px-4 rounded mr-3'
-            onClick={() => toggleModal('signIn')}
-          >
-            Sign in
-          </button>
-          <AuthModal type='signIn' />
-          <button
-            className='border p-1 px-4 rounded'
-            onClick={() => toggleModal('signUp')}
-          >
-            Sign up
-          </button>
-          <AuthModal type='signUp' />
+          {data ? (
+            <button
+              className='bg-blue-400 text-white border p-1 px-4 rounded mr-3'
+              onClick={signout}
+            >
+              Sign out
+            </button>
+          ) : (
+            <>
+              <button
+                className='bg-blue-400 text-white border p-1 px-4 rounded mr-3'
+                onClick={() => toggleModal('signIn')}
+              >
+                Sign in
+              </button>
+              <AuthModal type='signIn' />
+              <button
+                className='border p-1 px-4 rounded'
+                onClick={() => toggleModal('signUp')}
+              >
+                Sign up
+              </button>
+              <AuthModal type='signUp' />
+            </>
+          )}
         </div>
       </div>
     </nav>
