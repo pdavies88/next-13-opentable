@@ -1,4 +1,5 @@
 import Navigation from '@/components/global/navigation';
+import 'react-datepicker/dist/react-datepicker.css';
 import './globals.css';
 import { Inter } from 'next/font/google';
 import AuthContext from './context/AuthContext';
