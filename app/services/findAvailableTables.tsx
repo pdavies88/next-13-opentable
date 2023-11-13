@@ -1,6 +1,6 @@
 import { PrismaClient, Table } from '@prisma/client';
 import { NextResponse } from 'next/server';
-import { times } from './helpers';
+import { times } from '../helpers';
 const prisma = new PrismaClient();
 
 export const findAvailabileTables = async ({

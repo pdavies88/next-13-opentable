@@ -1,4 +1,4 @@
-import { findAvailabileTables } from '@/app/findAvailableTables';
+import { findAvailabileTables } from '@/app/services/findAvailableTables';
 import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -10,8 +10,6 @@ export async function GET(req: NextRequest) {
   const day = req.nextUrl.searchParams.get('day');
   const time = req.nextUrl.searchParams.get('time');
   const partySize = req.nextUrl.searchParams.get('partySize');
-
-  console.log('slug', slug);
 
   if (!day || !time || !partySize) {
     return NextResponse.json(
@@ -60,3 +58,5 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json(availabilities);
 }
+
+// http://localhost:3000/api/restaurant/vivaan-fine-indian-cuisine-ottawa/availability?day=2023-02-03&time=15:00:00.000Z&partySize=8
