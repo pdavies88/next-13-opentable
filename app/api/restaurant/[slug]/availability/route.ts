@@ -1,7 +1,6 @@
-import { findAvailabileTables, times } from '@/app/helpers';
+import { findAvailabileTables } from '@/app/findAvailableTables';
 import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-// import { findAvailabileTables } from '../../../../services/restaurant/findAvailableTables';
 
 const prisma = new PrismaClient();
 
